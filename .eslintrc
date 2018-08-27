@@ -1,0 +1,10 @@
+{
+  "extends": "airbnb",
+  "rules": {
+    "no-underscore-dangle": 0,
+    "object-curly-spacing": "off"
+  },
+  "env": {
+    "jasmine": true
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "boilerplate-node",
+  "scripts": {
+    "postbuild": "npm build"
+  },
+  "env": {
+    "NODE_CONFIG_ENV": {
+      "description": "Realm for loading config entries. Defaults to env.",
+      "value": "env"
+    },
+    "MONGODB_URI": {
+      "description": "Connection URI for MongoDb"
+    },
+    "SENTRY_DSN": {
+      "description": "Sentry client DSN for error reporting"
+    },
+    "PAPERTRAIL_HOST": {
+      "description": "Host for logging via papertrail"
+    },
+    "PAPERTRAIL_PORT": {
+      "description": "Port for logging via papertrail"
+    }
+  }
+}

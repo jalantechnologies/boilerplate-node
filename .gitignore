@@ -1,0 +1,19 @@
+dist/
+
+#logs
+logs/
+
+# Node Files
+node_modules/
+
+# editor config files
+.idea/
+
+# local config file
+config/local.json
+
+# heroku procfile for test
+Procfile.test
+
+# temp files
+tmp/

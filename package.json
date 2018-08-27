@@ -1,0 +1,40 @@
+{
+  "name": "boilerplate-node",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "gulp build",
+    "start": "node ./dist/bin/www",
+    "serve": "gulp serve",
+    "lint": "eslint *.js",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^1.30.0",
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.0",
+    "express-winston": "^2.5.1",
+    "i18n": "^0.8.3",
+    "mongoose": "^5.2.2",
+    "raven": "^2.6.3",
+    "winston": "^2.4.3",
+    "winston-papertrail": "^1.0.5"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-runtime": "^6.26.0",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-a11y": "^6.1.0",
+    "eslint-plugin-react": "^7.10.0",
+    "gulp": "3.9.1",
+    "gulp-babel": "^7.0.1",
+    "gulp-nodemon": "^2.2.1",
+    "husky": "^0.14.3"
+  }
+}
