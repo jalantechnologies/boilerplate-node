@@ -3,14 +3,16 @@ const {Logger} = require('../helpers');
 
 exports.onError = function (error) {
   const server = this;
-  const address = server.address();
-
+  // simply throw error if evt not related to listening
   if (error.syscall !== 'listen') {
     throw error;
   }
+  const address = server.address();
+  // fallback to err.port in case address is not available
+  const port = address ? address.port : error.port;
   const bind = typeof port === 'string'
-    ? `Pipe ${address.port}`
-    : `Port ${address.port}`;
+    ? `Pipe ${port}`
+    : `Port ${port}`;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
