@@ -4,7 +4,7 @@
 
 - `npm build` - For building the app.
 - `npm start` - For starting the app.
-- `npm server` - For building, starting and reloading on changes over the app.
+- `npm serve` - For building, starting and reloading on changes over the app.
 
 ## Configuration
 
@@ -12,9 +12,13 @@ The module uses [config](https://www.npmjs.com/package/config) for loading confi
 
 In the `config` directory:
 
+- Consult/update `custom-environment-variables.json` for loading values via environment. This overrides any value set in files defined below.
 - Create `local.json` for local config.
-- Consult/update `env.js` for loading values via env. `NODE_CONFIG_ENV` environment variable must be set to `env` for this.
-- Consult/update `default.json` for default values.
+- Consult/update `development.json` for values at development. (The default env)
+- Consult/update `testing.json` for values at testing. `NODE_CONFIG_ENV` must be set to `testing` for this.
+- Consult/update `staging.json` for values at staging. `NODE_CONFIG_ENV` must be set to `staging` for this.
+- Consult/update `production.json` for values at production. `NODE_CONFIG_ENV` must be set to `production` for this.
+- Consult/update `default.json` for **constant values only**.
 
 **Entries**
 

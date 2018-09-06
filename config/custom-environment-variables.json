@@ -1,0 +1,15 @@
+{
+  "www": {
+    "port": "PORT"
+  },
+  "sentry": {
+    "dsn": "SENTRY_DSN"
+  },
+  "mongoDb": {
+    "uri": "MONGO_DB_URI"
+  },
+  "papertrail": {
+    "host": "PAPERTRAIL_HOST",
+    "port": "PAPERTRAIL_PORT"
+  }
+}

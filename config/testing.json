@@ -1,0 +1,16 @@
+{
+  "mongoDb": {
+    "uri": "",
+    "debug": false
+  },
+  "papertrail": {
+    "host": "",
+    "port": ""
+  },
+  "sentry": {
+    "dsn": ""
+  },
+  "www": {
+    "port": 5000
+  }
+}

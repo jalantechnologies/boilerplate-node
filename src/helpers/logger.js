@@ -1,10 +1,13 @@
 const winston = require('winston');
 const config = require('config');
 
-const logLevel = 'info';
-
 // noinspection BadExpressionStatementJS
 require('winston-papertrail').Papertrail;
+
+const logLevel = 'info';
+// load values from config
+const PAPERTRAIL_HOST = config.get('papertrail.host');
+const PAPERTRAIL_PORT = config.get('papertrail.port');
 
 // init log transports
 const transports = [
@@ -12,7 +15,7 @@ const transports = [
 ];
 
 // add papertrail transport if configured
-if (config.has('papertrail.host') && config.has('papertrail.port')) {
+if (PAPERTRAIL_HOST && PAPERTRAIL_PORT) {
   transports.push(new winston.transports.Papertrail({
     host: config.get('papertrail.host'),
     port: config.get('papertrail.port'),

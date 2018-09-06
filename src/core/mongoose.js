@@ -3,9 +3,13 @@ const config = require('config');
 
 const {Logger} = require('../helpers');
 
+// load values from config
+const MONGO_DB_URI = config.get('mongoDb.uri');
+const MONGO_DB_DEBUG = config.get('mongoDb.debug') === true;
+
 module.exports = async () => {
   // skip installation if not configured
-  if (!config.has('mongoDb.uri')) return;
+  if (!MONGO_DB_URI) return;
 
   // add event listeners
   mongoose.connection.on('connected', () => {
@@ -28,7 +32,7 @@ module.exports = async () => {
 
   // set global props
   // enable debugging via logger if configured
-  mongoose.set('debug', (config.has('mongoDb.debug') && config.get('mongoDb.debug') === true) ? (...args) => {
+  mongoose.set('debug', MONGO_DB_DEBUG ? (...args) => {
     Logger.info('core.mongoose - request - ', args);
   } : null);
 
