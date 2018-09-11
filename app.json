@@ -1,7 +1,6 @@
 {
   "name": "boilerplate-node",
   "scripts": {
-    "postbuild": "npm build"
   },
   "env": {
     "NODE_ENV": {
