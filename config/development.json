@@ -1,7 +1,7 @@
 {
   "mongoDb": {
-    "uri": "",
-    "debug": true
+    "debug": true,
+    "uri": "mongodb://localhost:27017/node-boilerplate-development"
   },
   "papertrail": {
     "host": "",

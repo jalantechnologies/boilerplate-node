@@ -1,0 +1,2 @@
+# auto detect text files and force LF normalization
+# text eol=lf

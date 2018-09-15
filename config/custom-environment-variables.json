@@ -6,7 +6,7 @@
     "dsn": "SENTRY_DSN"
   },
   "mongoDb": {
-    "uri": "MONGO_DB_URI"
+    "uri": "MONGODB_URI"
   },
   "papertrail": {
     "host": "PAPERTRAIL_HOST",

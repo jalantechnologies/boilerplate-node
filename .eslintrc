@@ -1,10 +1,19 @@
 {
   "extends": "airbnb",
   "rules": {
-    "no-underscore-dangle": 0,
     "object-curly-spacing": "off"
   },
   "env": {
     "jasmine": true
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.spec.js"
+      ],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ]
 }
