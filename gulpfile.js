@@ -55,12 +55,12 @@ gulp.task('copy_assets', () => gulp.src([`${SRC_DIR}/public/**/*.*`])
 gulp.task('copy_views', () => gulp.src([`${SRC_DIR}/views/**/*.*`])
   .pipe(gulp.dest(`${DEST_DIR}/views`)));
 
-// linting via gulp - for all js files
+// linting via gulp - for all js files in root and src dir
 // pipe #1 - pass it to eslint plugin (no explicit options, let eslintrc handle this)
 // pipe #2 - format the results in default format
 // pipe #3 - fail only after processing all the files
 // noinspection JSCheckFunctionSignatures
-gulp.task('lint', () => gulp.src([`${SRC_DIR}/**/*.js`])
+gulp.task('lint', () => gulp.src(['*.js', `${SRC_DIR}/**/*.js`])
   .pipe(eslint())
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));
