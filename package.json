@@ -8,8 +8,18 @@
     "serve": "gulp serve",
     "lint": "gulp lint",
     "heroku-postbuild": "npm run build",
-    "heroku-start": "pm2-runtime start ecosystem.config.js",
-    "precommit": "npm run lint"
+    "heroku-start": "pm2-runtime start ecosystem.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   },
   "dependencies": {
     "@sentry/node": "^4.1.1",
@@ -40,6 +50,7 @@
     "gulp-babel": "^7.0.1",
     "gulp-eslint": "^5.0.0",
     "gulp-nodemon": "^2.2.1",
-    "husky": "^0.14.3"
+    "husky": "^0.14.3",
+    "lint-staged": "^7.3.0"
   }
 }
