@@ -3,10 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "gulp build",
     "start": "node ./dist/bin/www",
+    "build": "gulp build",
     "serve": "gulp serve",
-    "lint": "eslint *.js",
+    "lint": "gulp lint",
     "heroku-postbuild": "npm run build",
     "heroku-start": "pm2-runtime start ecosystem.config.js",
     "precommit": "npm run lint"
@@ -32,12 +32,13 @@
   },
   "devDependencies": {
     "eslint": "^5.4.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jsx-a11y": "^6.1.0",
-    "eslint-plugin-react": "^7.10.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-react": "^7.11.1",
     "gulp": "3.9.1",
     "gulp-babel": "^7.0.1",
+    "gulp-eslint": "^5.0.0",
     "gulp-nodemon": "^2.2.1",
     "husky": "^0.14.3"
   }
