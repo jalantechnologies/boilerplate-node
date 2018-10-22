@@ -29,6 +29,8 @@ Each entry here is an object notation and is provided with short description.
 - `sentry.dsn` `String` - Sentry DSN for error reporting. If not provided, sentry will not be configured.
 - `papertrail.host` `String` - If provided, logging via [Papertrail](https://papertrail.com) will be enabled.
 - `papertrail.port` `String` - If provided, logging via [Papertrail](https://papertrail.com) will be enabled.
+- `papertrail.program` `String` - Papertrail program. Useful for prefixing log messages with custom namespace.
+- `papertrail.handleExceptions` `Boolean` - For enabling logging of un-handled exceptions via papertrail. (Default: `false`)
 - `www.port` `String/Number` - Port for listening incoming HTTP connection. (Default: `8080`)
 
 ## Features

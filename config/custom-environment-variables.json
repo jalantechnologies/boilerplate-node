@@ -10,6 +10,7 @@
   },
   "papertrail": {
     "host": "PAPERTRAIL_HOST",
-    "port": "PAPERTRAIL_PORT"
+    "port": "PAPERTRAIL_PORT",
+    "program": "PAPERTRAIL_PROGRAM"
   }
 }

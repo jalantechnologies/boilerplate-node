@@ -1,11 +1,16 @@
 {
+  "logger": {
+    "console": true
+  },
   "mongoDb": {
     "debug": true,
     "uri": "mongodb://localhost:27017/node-boilerplate-development"
   },
   "papertrail": {
     "host": "",
-    "port": ""
+    "port": "",
+    "program": "",
+    "handleExceptions": false
   },
   "sentry": {
     "dsn": ""

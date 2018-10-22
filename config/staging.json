@@ -1,5 +1,14 @@
 {
+  "logger": {
+    "console": false
+  },
   "mongoDb": {
     "debug": false
+  },
+  "papertrail": {
+    "host": null,
+    "port": null,
+    "program": "api-staging",
+    "handleExceptions": true
   }
 }
