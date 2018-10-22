@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node ./dist/bin/www",
     "build": "gulp build",
+    "test": "mocha \"./src/**/*.spec.js\" --timeout 2000 --exit --env='{\"NODE_CONFIG_ENV\":\"testing\"}'",
+    "test-dist": "mocha \"./dist/**/*.spec.js\" --timeout $MOCHA_TIMEOUT --exit --env=$MOCHA_ENV_PARAMS",
     "serve": "gulp serve",
     "lint": "gulp lint",
     "heroku-postbuild": "npm run build",
@@ -51,6 +53,7 @@
     "gulp-eslint": "^5.0.0",
     "gulp-nodemon": "^2.2.1",
     "husky": "^0.14.3",
-    "lint-staged": "^7.3.0"
+    "lint-staged": "^7.3.0",
+    "mocha": "git://github.com/jalantechnologies/mocha.git#7aee408a4173fabb74287de0d0f50b63ae2e270a"
   }
 }

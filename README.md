@@ -2,9 +2,11 @@
 
 ## Scripts
 
-- `npm build` - For building the app.
+- `npm build` - For building the app. (Set `NODE_ENV` to `testing` to build for test)
 - `npm start` - For starting the app.
 - `npm serve` - For building, starting and reloading on changes over the app.
+- `npm test` - To run test suits via `mocha`.
+- `npm test-dist` - To run test suits for the distribution build.
 
 ## Configuration
 
@@ -42,3 +44,4 @@ Each entry here is an object notation and is provided with short description.
 - Heroku deployment ready (see `app.json` and `Procfile`)
 - PM2 process manager ready (`ecosystem.config.js`)
 - Internationalization support.
+- CI/CD via CircleCI.
