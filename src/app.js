@@ -7,6 +7,8 @@ const expressWinston = require('express-winston');
 const Raven = require('raven');
 const bodyParser = require('body-parser');
 
+// our in-house dependency injection framework
+const DI = require('./di');
 const routes = require('./routes');
 const {Mongoose} = require('./core');
 const {Utils} = require('./helpers');
@@ -18,6 +20,15 @@ const app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// init dependency injection
+// register modules with respective namespace
+// module then can be accessible via req.locals.namespace within the controller
+app.use(DI([], () => {
+  // fire app.ready
+  // do it in next iteration to avoid server from not picking up the event
+  process.nextTick(() => app.emit('ready'));
+}));
 
 // init Mongoose
 Mongoose();

@@ -39,4 +39,5 @@ Each entry here is an object notation and is provided with short description.
 - Error reporting via sentry.
 - Database connection via mongoose.
 - Heroku deployment ready (see `app.json` and `Procfile`)
+- PM2 process manager ready (`ecosystem.config.js`)
 - Internationalization support.

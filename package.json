@@ -8,9 +8,11 @@
     "serve": "gulp serve",
     "lint": "eslint *.js",
     "heroku-postbuild": "npm run build",
+    "heroku-start": "pm2-runtime start ecosystem.config.js",
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "async": "^2.6.1",
     "babel-core": "^6.26.3",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
@@ -19,10 +21,11 @@
     "config": "^1.30.0",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.5.7",
-    "express": "^4.16.0",
+    "express": "^4.16.4",
     "express-winston": "^2.5.1",
     "i18n": "^0.8.3",
     "mongoose": "^5.2.2",
+    "pm2": "^3.2.2",
     "raven": "^2.6.3",
     "winston": "^2.4.3",
     "winston-papertrail": "^1.0.5"
