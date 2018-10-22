@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 // our in-house dependency injection framework
 const DI = require('./di');
 const routes = require('./routes');
-const {Mongoose} = require('./core');
+const modules = require('./modules');
 const {Utils} = require('./helpers');
 const {Logger, Error} = require('./helpers');
 
@@ -24,14 +24,13 @@ app.set('view engine', 'ejs');
 // init dependency injection
 // register modules with respective namespace
 // module then can be accessible via req.locals.namespace within the controller
-app.use(DI([], () => {
+app.use(DI([
+  {module: modules.mongoose, namespace: 'db'},
+], () => {
   // fire app.ready
   // do it in next iteration to avoid server from not picking up the event
   process.nextTick(() => app.emit('ready'));
 }));
-
-// init Mongoose
-Mongoose();
 
 // init sentry for error monitoring
 Raven.config(config.get('sentry.dsn')).install();

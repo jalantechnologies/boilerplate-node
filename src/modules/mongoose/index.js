@@ -1,13 +1,14 @@
 const mongoose = require('mongoose');
 const config = require('config');
 
-const {Logger} = require('../helpers');
+const {Logger} = require('../../helpers');
+const models = require('./models');
 
 // load values from config
 const MONGO_DB_URI = config.get('mongoDb.uri');
 const MONGO_DB_DEBUG = config.get('mongoDb.debug') === true;
 
-module.exports = async () => {
+exports.init = (done) => {
   // skip installation if not configured
   if (!MONGO_DB_URI) return;
 
@@ -40,8 +41,8 @@ module.exports = async () => {
   // if not connected returns errors immediately rather than waiting for reconnect
   mongoose.set('bufferCommands', false);
 
-  // any error on init should crash the app
-  await mongoose.connect(config.get('mongoDb.uri'), {
+  // noinspection JSIgnoredPromiseFromCall
+  mongoose.connect(config.get('mongoDb.uri'), {
     autoIndex: true,
     // reconnect if connection is lost
     autoReconnect: true,
@@ -53,5 +54,13 @@ module.exports = async () => {
     bufferMaxEntries: 0,
     useNewUrlParser: true,
     promiseLibrary: global.Promise,
+  }, (err) => {
+    if (err) {
+      // initial connection error, report it right away
+      done(err);
+    } else {
+      // initial connection was successful, conclude
+      done(null, models);
+    }
   });
 };
