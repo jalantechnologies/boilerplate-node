@@ -101,22 +101,22 @@ app.use((err, req, res, next) => {
     // handled error
     res.status(err.api_status);
     res.send({
-      error: err.api_code,
-      error_description: err.message,
+      error: err.message || res.__(`DEFAULT_ERRORS.${err.locale_tag}`),
+      error_code: err.api_code,
     });
   } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
     res.status(503);
     res.send({
-      error: 'Service currently unavailable. Please try again later.',
-      error_description: 'temporarily_unavailable',
+      error: res.__('DEFAULT_ERRORS.TEMPORARILY_UNAVAILABLE'),
+      error_code: 'temporarily_unavailable',
     });
   } else {
     // un-handled error
     res.status(500);
     res.send({
-      error: 'Request could not be completed due to server encountered error. Please try again later.',
-      error_description: 'server_error',
+      error: res.__('DEFAULT_ERRORS.SERVER_ERROR'),
+      error_code: 'server_error',
     });
     // continue to next error handler
     next(err);

@@ -1,3 +1,9 @@
 {
-  "HELLO": "I said hello using translation service"
+  "HELLO": "I said hello using translation service",
+  "DEFAULT_ERRORS": {
+    "SERVER_ERROR": "Request could not be completed due to server encountered error. Please try again later.",
+    "TEMPORARILY_UNAVAILABLE": "Service currently unavailable. Please try again later.",
+    "INVALID_REQUEST": "Request could not be completed due to invalid request. Kindly check your request and try again.",
+    "NOT_FOUND": "Requested resource not found."
+  }
 }
