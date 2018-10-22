@@ -13,7 +13,8 @@
     "handleExceptions": false
   },
   "sentry": {
-    "dsn": ""
+    "dsn": "",
+    "env": ""
   },
   "www": {
     "port": 5000

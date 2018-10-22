@@ -1,18 +1,25 @@
-const config = require('config');
 const express = require('express');
 const i18n = require('i18n');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const expressWinston = require('express-winston');
-const Raven = require('raven');
 const bodyParser = require('body-parser');
 
 // our in-house dependency injection framework
 const DI = require('./di');
+const core = require('./core');
 const routes = require('./routes');
 const modules = require('./modules');
-const {Utils} = require('./helpers');
 const {Logger, Error} = require('./helpers');
+// from modules
+const {DbUtils} = modules.mongoose;
+
+// init i18n
+i18n.configure({
+  locales: ['en', 'de'],
+  defaultLocale: 'en',
+  directory: path.join(__dirname, 'locales'),
+});
 
 // init app
 const app = express();
@@ -32,15 +39,8 @@ app.use(DI([
   process.nextTick(() => app.emit('ready'));
 }));
 
-// init sentry for error monitoring
-Raven.config(config.get('sentry.dsn')).install();
-
-// init i18n
-i18n.configure({
-  locales: ['en', 'de'],
-  defaultLocale: 'en',
-  directory: path.join(__dirname, 'locales'),
-});
+// interception start for sentry
+app.use(core.sentry.interceptBegin());
 
 // set up winston logger as middleware
 app.use(expressWinston.logger({
@@ -56,9 +56,6 @@ app.use(expressWinston.logger({
   // set log level according to response status
   statusLevels: true,
 }));
-
-// set up sentry
-app.use(Raven.requestHandler());
 
 // set up cookie parser
 app.use(cookieParser());
@@ -107,7 +104,7 @@ app.use((err, req, res, next) => {
       error: err.api_code,
       error_description: err.message,
     });
-  } else if (Utils.checkMongooseConnectionErr(err)) {
+  } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
     res.status(503);
     res.send({
@@ -126,8 +123,8 @@ app.use((err, req, res, next) => {
   }
 });
 
-// error reporting via sentry
-app.use(Raven.errorHandler());
+// interception end for sentry
+app.use(core.sentry.interceptEnd());
 
 // error logging via winston
 app.use(expressWinston.errorLogger({

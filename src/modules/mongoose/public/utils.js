@@ -4,7 +4,7 @@ exports.checkValidObjectId = val => mongoose.Types.ObjectId.isValid(val);
 
 exports.toObjectId = val => mongoose.Types.ObjectId(val);
 
-exports.parseMongooseError = (err) => {
+exports.parseError = (err) => {
   // init error
   let mongooseErr;
   if (err.errors) {
@@ -14,4 +14,4 @@ exports.parseMongooseError = (err) => {
   return mongooseErr;
 };
 
-exports.checkMongooseConnectionErr = err => err.message === 'no connection available for operation and number of stored operation > 0';
+exports.checkConnectionErr = err => err.message === 'no connection available for operation and number of stored operation > 0';

@@ -27,6 +27,7 @@ Each entry here is an object notation and is provided with short description.
 - `mongoDb.uri` `String` - URI connection string for MongoDb. If not provided, mongoose will not be configured.
 - `mongoDb.debug` `Boolean` - Set this to `true` for logging mongodb requests via configured logger.
 - `sentry.dsn` `String` - Sentry DSN for error reporting. If not provided, sentry will not be configured.
+- `sentry.env` `String` - Environment for Sentry. [More Info](https://docs.sentry.io/learn/environments/?platform=node)
 - `papertrail.host` `String` - If provided, logging via [Papertrail](https://papertrail.com) will be enabled.
 - `papertrail.port` `String` - If provided, logging via [Papertrail](https://papertrail.com) will be enabled.
 - `papertrail.program` `String` - Papertrail program. Useful for prefixing log messages with custom namespace.

@@ -3,8 +3,12 @@
 const http = require('http');
 const config = require('config');
 
+const core = require('../core');
 const {Logger} = require('../helpers');
 const listeners = require('./event-listeners');
+
+// init sentry - should be always initialized before everything else
+core.sentry.init();
 
 // get values from config
 const WWW_PORT = config.get('www.port');

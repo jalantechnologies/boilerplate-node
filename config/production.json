@@ -3,12 +3,17 @@
     "console": false
   },
   "mongoDb": {
-    "debug": false
+    "debug": false,
+    "uri": null
   },
   "papertrail": {
     "host": null,
     "port": null,
     "program": "api-production",
     "handleExceptions": true
+  },
+  "sentry": {
+    "dsn": null,
+    "env": "production"
   }
 }

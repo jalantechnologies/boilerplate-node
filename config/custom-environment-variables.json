@@ -3,7 +3,8 @@
     "port": "PORT"
   },
   "sentry": {
-    "dsn": "SENTRY_DSN"
+    "dsn": "SENTRY_DSN",
+    "env": "SENTRY_ENV"
   },
   "mongoDb": {
     "uri": "MONGODB_URI"
