@@ -27,6 +27,9 @@ exports.accountsReg = [
         negated: true,
         errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_MISSING_PHONE'),
       },
+      isInt: {
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_INVALID_PHONE'),
+      },
     },
     email: {
       in: 'body',
