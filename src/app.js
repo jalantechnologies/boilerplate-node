@@ -68,11 +68,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // set up i18n
 app.use(i18n.init);
 
-// parse application/x-www-form-urlencoded payload
-app.use(bodyParser.urlencoded({
-  extended: false,
-}));
-
 // parse application/json payload
 app.use(bodyParser.json());
 
