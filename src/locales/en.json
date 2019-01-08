@@ -1,9 +1,21 @@
 {
-  "HELLO": "I said hello using translation service",
   "DEFAULT_ERRORS": {
     "SERVER_ERROR": "Request could not be completed due to server encountered error. Please try again later.",
     "TEMPORARILY_UNAVAILABLE": "Service currently unavailable. Please try again later.",
     "INVALID_REQUEST": "Request could not be completed due to invalid request. Kindly check your request and try again.",
-    "NOT_FOUND": "Requested resource not found."
+    "NOT_FOUND": "Requested resource not found.",
+    "VALIDATION_ERROR": "Request could not be completed due to invalid parameters. Kindly check provided entries and try again."
+  },
+  "VAL_ERRORS": {
+    "USR_ACC_NEW_MISSING_EMAIL": "Please specify an email address to register",
+    "USR_ACC_NEW_INVALID_EMAIL": "Please specify a valid email address to register",
+    "USR_ACC_NEW_EMAIL_EXISTS": "An account is already registered with this email address. Please use a different email address to complete the registration",
+    "USR_ACC_NEW_MISSING_PWD": "Please specify a password to register",
+    "USR_ACC_NEW_MISSING_CNF_PWD": "Please specify confirm password to register",
+    "USR_ACC_NEW_CNF_PWD_MISMATCH": "Please ensure that password and confirm password matches",
+    "USR_ACC_NEW_MISSING_F_NAME": "Please specify first name to register",
+    "USR_ACC_NEW_INVALID_F_NAME": "Please specify a valid first name to register",
+    "USR_ACC_NEW_MISSING_PHONE": "Please specify phone number to register",
+    "USR_ACC_NEW_INVALID_PHONE": "Please specify a valid phone number to register"
   }
 }

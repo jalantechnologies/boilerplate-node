@@ -19,6 +19,7 @@ i18n.configure({
   locales: ['en', 'de'],
   defaultLocale: 'en',
   directory: path.join(__dirname, 'locales'),
+  objectNotation: true,
 });
 
 // init app
@@ -33,6 +34,7 @@ app.set('view engine', 'ejs');
 // module then can be accessible via req.locals.namespace within the controller
 app.use(DI([
   {module: modules.mongoose, namespace: 'db'},
+  {module: modules.accounts, namespace: 'accounts'},
 ], () => {
   // fire app.ready
   // do it in next iteration to avoid server from not picking up the event
@@ -66,11 +68,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 // set up i18n
 app.use(i18n.init);
 
-// parse application/x-www-form-urlencoded payload
-app.use(bodyParser.urlencoded({
-  extended: false,
-}));
-
 // parse application/json payload
 app.use(bodyParser.json());
 
@@ -88,7 +85,7 @@ app.use((req, res, next) => {
 });
 
 // set up routes
-app.use('/', routes.hello);
+app.use('/accounts', routes.accounts);
 
 // not found handler
 app.use((req, res, next) => {
@@ -100,10 +97,14 @@ app.use((err, req, res, next) => {
   if (Error.isHandled(err)) {
     // handled error
     res.status(err.api_status);
-    res.send({
+    const obj = {
       error: err.message || res.__(`DEFAULT_ERRORS.${err.locale_tag}`),
       error_code: err.api_code,
-    });
+    };
+    if (err.errors) {
+      obj.errors = err.errors;
+    }
+    res.send(obj);
   } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
     res.status(503);
