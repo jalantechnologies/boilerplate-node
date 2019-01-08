@@ -106,7 +106,9 @@ app.use((err, req, res, next) => {
       error: err.message || res.__(`DEFAULT_ERRORS.${err.locale_tag}`),
       error_code: err.api_code,
     };
-    if (err.errors) obj.errors = err.errors;
+    if (err.errors) {
+      obj.errors = err.errors;
+    }
     res.send(obj);
   } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
