@@ -34,7 +34,7 @@ app.set('view engine', 'ejs');
 // module then can be accessible via req.locals.namespace within the controller
 app.use(DI([
   {module: modules.mongoose, namespace: 'db'},
-  {module: modules.accounts, namespace: 'accounts',},
+  {module: modules.accounts, namespace: 'accounts'},
 ], () => {
   // fire app.ready
   // do it in next iteration to avoid server from not picking up the event

@@ -1,6 +1,3 @@
-const config = require('config');
-const JWT = require('jsonwebtoken');
-
 const {CryptoUtils} = require('../../helpers');
 
 exports.initPasswordHash = (pwd) => {

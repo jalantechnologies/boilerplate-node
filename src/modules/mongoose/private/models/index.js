@@ -3,5 +3,5 @@ const profile = require('./profile');
 
 module.exports = {
   accounts,
-  profile
+  profile,
 };

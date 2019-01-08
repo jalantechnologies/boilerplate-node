@@ -30,6 +30,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.7.0",
     "babel-runtime": "^6.26.0",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "config": "^1.30.0",
     "cookie-parser": "^1.4.3",
