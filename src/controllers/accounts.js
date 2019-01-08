@@ -1,6 +1,6 @@
 const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
-let _ = require('lodash');
+const _ = require('lodash');
 
 const {Error} = require('../helpers');
 const {InputValidator} = require('../interceptors');
