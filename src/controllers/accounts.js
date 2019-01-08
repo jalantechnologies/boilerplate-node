@@ -14,11 +14,19 @@ exports.accountsReg = [
         negated: true,
         errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_MISSING_F_NAME'),
       },
+      isInt: {
+        negated: true,
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_INVALID_F_NAME'),
+      },
     },
     last_name: {
       in: 'body',
       optional: true,
       trim: true,
+      isInt: {
+        negated: true,
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_INVALID_F_NAME'),
+      },
     },
     contact_phone: {
       in: 'body',
@@ -88,10 +96,10 @@ exports.accountsReg = [
             email: params.email,
             password: {hash, salt},
           });
-          // create new recipient for the account
+          // create new profile for the account
           const profile = await res.locals.db.profile.create({
             account_id: account.id,
-            profile: {
+            basic: {
               first_name: params.first_name,
               last_name: params.last_name,
             },

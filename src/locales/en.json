@@ -14,6 +14,7 @@
     "USR_ACC_NEW_MISSING_CNF_PWD": "Please specify confirm password to register",
     "USR_ACC_NEW_CNF_PWD_MISMATCH": "Please ensure that password and confirm password matches",
     "USR_ACC_NEW_MISSING_F_NAME": "Please specify first name to register",
+    "USR_ACC_NEW_INVALID_F_NAME": "Please specify a valid first name to register",
     "USR_ACC_NEW_MISSING_PHONE": "Please specify phone number to register",
     "USR_ACC_NEW_INVALID_PHONE": "Please specify a valid phone number to register",
     "USR_ACC_NEW_MISSING_ORG_NAME": "Please specify your organization name to register",
