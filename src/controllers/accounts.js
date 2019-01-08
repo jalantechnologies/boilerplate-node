@@ -1,5 +1,6 @@
 const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
+let _ = require('lodash');
 
 const {Error} = require('../helpers');
 const {InputValidator} = require('../interceptors');
@@ -109,8 +110,8 @@ exports.accountsReg = [
           });
           // conclude
           resolve({
-            account,
-            profile,
+            account: _.pick(account.toJSON(), ['email', 'created_at', 'updated_at', 'id']),
+            profile: profile.toJSON(),
           });
         }
       } catch (e) {

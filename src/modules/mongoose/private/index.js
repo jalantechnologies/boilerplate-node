@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const config = require('config');
 
+// register plugins
+const plugins = require('./plugins');
+
+mongoose.plugin(plugins.basicTransformation);
+
 const {Logger} = require('../../../helpers');
 const models = require('./models');
 
