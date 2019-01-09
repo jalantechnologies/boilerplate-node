@@ -2,6 +2,10 @@
   "name": "boilerplate-node",
   "version": "0.0.0",
   "private": true,
+  "engines": {
+    "npm": "6.1.0",
+    "node": "10.14.1"
+  },
   "scripts": {
     "start": "node ./dist/bin/www",
     "build": "gulp build",
