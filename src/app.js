@@ -4,6 +4,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const expressWinston = require('express-winston');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+const config = require('config');
+const _ = require('lodash');
 
 // our in-house dependency injection framework
 const DI = require('./di');
@@ -25,6 +28,11 @@ i18n.configure({
 // init app
 const app = express();
 
+// trust the immediate proxy
+// as our app sits behind a proxy when deployed, we need to trust the X-Forwarded-* header
+// https://expressjs.com/en/guide/behind-proxies.html
+app.enable('trust proxy');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -40,6 +48,9 @@ app.use(DI([
   // do it in next iteration to avoid server from not picking up the event
   process.nextTick(() => app.emit('ready'));
 }));
+
+// set up cors
+app.use(cors());
 
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
@@ -70,6 +81,25 @@ app.use(i18n.init);
 
 // parse application/json payload
 app.use(bodyParser.json());
+
+// add headers
+app.use(core.cors.addHeaders);
+
+// add request specific config
+app.use((req, res, next) => {
+  // build config
+  // note - use the same namespace as defined in the config files
+  const c = {
+    root: `${req.protocol}://${req.hostname}`,
+  };
+  // overwrite via configured values
+  // configured values should take precedence over built ones
+  _.assign(c, config.get('app'));
+  // inject
+  res.locals.config = c;
+  // conclude
+  next();
+});
 
 // add headers
 app.use((req, res, next) => {
