@@ -45,6 +45,9 @@ app.use(DI([
 // set up cors
 app.use(cors());
 
+// pre-flight request
+app.options('*', cors());
+
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
 
@@ -83,8 +86,15 @@ app.use((req, res, next) => {
   // request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  next();
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Accept');
+  // intercepts OPTIONS method
+  if (req.method === 'OPTIONS') {
+    // respond with 200
+    res.send(200);
+  } else {
+    // move on
+    next();
+  }
 });
 
 // set up routes
