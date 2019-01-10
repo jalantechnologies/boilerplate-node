@@ -45,9 +45,6 @@ app.use(DI([
 // set up cors
 app.use(cors());
 
-// preflight request
-app.options('*', cors());
-
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
 
@@ -84,11 +81,9 @@ app.use((req, res, next) => {
   // website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, DELETE, PATCH');
   // request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  // set to true if you need the website to include cookies in the requests sent
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Headers', 'Authorization');
   next();
 });
 
