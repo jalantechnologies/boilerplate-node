@@ -78,25 +78,8 @@ app.use(i18n.init);
 // parse application/json payload
 app.use(bodyParser.json());
 
-
 // add headers
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-    res.send(200);
-  } else {
-    next();
-  }
-});
-
-app.options('*', (req, res) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELTE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-});
+app.use(core.cors.addHeaders);
 
 // set up routes
 app.use('/accounts', routes.accounts);
