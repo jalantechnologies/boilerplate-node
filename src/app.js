@@ -5,8 +5,6 @@ const cookieParser = require('cookie-parser');
 const expressWinston = require('express-winston');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const config = require('config');
-const _ = require('lodash');
 
 // our in-house dependency injection framework
 const DI = require('./di');
@@ -52,9 +50,6 @@ app.use(DI([
 // set up cors
 app.use(cors());
 
-// pre-flight request
-app.options('*', cors());
-
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
 
@@ -84,25 +79,6 @@ app.use(i18n.init);
 
 // parse application/json payload
 app.use(bodyParser.json());
-
-// add headers
-app.use(core.cors.addHeaders);
-
-// add request specific config
-app.use((req, res, next) => {
-  // build config
-  // note - use the same namespace as defined in the config files
-  const c = {
-    root: `${req.protocol}://${req.hostname}`,
-  };
-  // overwrite via configured values
-  // configured values should take precedence over built ones
-  _.assign(c, config.get('app'));
-  // inject
-  res.locals.config = c;
-  // conclude
-  next();
-});
 
 // add headers
 app.use((req, res, next) => {
