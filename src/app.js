@@ -84,9 +84,9 @@ app.use((req, res, next) => {
   // website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   // request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, content-type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   // set to true if you need the website to include cookies in the requests sent
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
