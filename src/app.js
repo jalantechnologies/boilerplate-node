@@ -85,22 +85,6 @@ app.use(bodyParser.json());
 // add headers
 app.use(core.cors.addHeaders);
 
-// add request specific config
-app.use((req, res, next) => {
-  // build config
-  // note - use the same namespace as defined in the config files
-  const c = {
-    root: `${req.protocol}://${req.hostname}`,
-  };
-  // overwrite via configured values
-  // configured values should take precedence over built ones
-  _.assign(c, config.get('app'));
-  // inject
-  res.locals.config = c;
-  // conclude
-  next();
-});
-
 // add headers
 app.use((req, res, next) => {
   // website you wish to allow to connect
