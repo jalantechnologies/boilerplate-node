@@ -50,7 +50,7 @@ app.use(DI([
 // set up cors
 app.use(cors());
 
-// pre-flight request
+// preflight request
 app.options('*', cors());
 
 // interception start for sentry
@@ -82,6 +82,7 @@ app.use(i18n.init);
 
 // parse application/json payload
 app.use(bodyParser.json());
+
 
 // add headers
 app.use((req, res, next) => {
