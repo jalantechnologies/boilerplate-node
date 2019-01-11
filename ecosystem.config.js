@@ -14,8 +14,8 @@ module.exports = {
   apps: [{
     name: 'API',
     // run node ./dist/bin/www
-    script: 'node',
-    args: './src/bin/www',
+    script: 'npm',
+    args: 'start',
     // use maximum number of CPUs available, defaults to 1
     // https://pm2.io/doc/en/runtime/guide/load-balancing/
     instances: normalizeMaxInstances(process.env.PM2_MAX_INSTANCES),
