@@ -56,7 +56,7 @@ app.use(expressWinston.logger({
   winstonInstance: Logger,
   // no pre-build meta
   meta: false,
-  msg: 'API HTTP REQUEST {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
+  msg: 'request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
   // use the default express/morgan request formatting
   // enabling this will override any msg if true
   expressFormat: false,
