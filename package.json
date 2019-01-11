@@ -14,7 +14,7 @@
     "serve": "gulp serve",
     "lint": "gulp lint",
     "heroku-postbuild": "npm run build",
-    "heroku-start": "pm2-runtime start ecosystem.config.js"
+    "heroku-start": "npm start"
   },
   "husky": {
     "hooks": {

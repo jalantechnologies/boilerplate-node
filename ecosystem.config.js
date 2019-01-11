@@ -13,7 +13,7 @@ function normalizeMaxInstances(val) {
 module.exports = {
   apps: [{
     name: 'API',
-    // run node ./dist/bin/www
+    // run npm start
     script: 'npm',
     args: 'start',
     // use maximum number of CPUs available, defaults to 1
