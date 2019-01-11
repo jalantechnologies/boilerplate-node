@@ -13,9 +13,9 @@ function normalizeMaxInstances(val) {
 module.exports = {
   apps: [{
     name: 'API',
-    // run npm start
-    script: 'npm',
-    args: 'start',
+    // run node ./dist/bin/www
+    script: 'node',
+    args: './dist/bin/www',
     // use maximum number of CPUs available, defaults to 1
     // https://pm2.io/doc/en/runtime/guide/load-balancing/
     instances: normalizeMaxInstances(process.env.PM2_MAX_INSTANCES),
