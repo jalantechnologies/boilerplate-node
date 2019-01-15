@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const expressWinston = require('express-winston');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // our in-house dependency injection framework
 const DI = require('./di');
@@ -41,6 +42,9 @@ app.use(DI([
   process.nextTick(() => app.emit('ready'));
 }));
 
+// set up cors
+app.use(cors());
+
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
 
@@ -49,7 +53,7 @@ app.use(expressWinston.logger({
   winstonInstance: Logger,
   // no pre-build meta
   meta: false,
-  msg: 'API HTTP REQUEST {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
+  msg: 'request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
   // use the default express/morgan request formatting
   // enabling this will override any msg if true
   expressFormat: false,
@@ -71,16 +75,14 @@ app.use(i18n.init);
 // parse application/json payload
 app.use(bodyParser.json());
 
-// add headers
+// set up headers
 app.use((req, res, next) => {
   // website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   // request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
-  // set to true if you need the website to include cookies in the requests sent
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
