@@ -45,6 +45,9 @@ app.use(DI([
 // set up cors
 app.use(cors());
 
+// pre-flight request
+app.options('/accounts', cors());
+
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
 
