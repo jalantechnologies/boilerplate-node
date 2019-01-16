@@ -123,3 +123,68 @@ exports.accountsReg = [
     });
   },
 ];
+
+exports.accountsLogin = [
+  // validation schema
+  checkSchema({
+    email: {
+      in: 'body',
+      trim: true,
+      isEmpty: {
+        negated: true,
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_LOGIN_MISSING_EMAIL'),
+      },
+      isEmail: {
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_LOGIN_INVALID_EMAIL'),
+      },
+    },
+    password: {
+      in: 'body',
+      trim: true,
+      isEmpty: {
+        negated: true,
+        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_LOGIN_MISSING_PWD'),
+      },
+    },
+  }),
+  // validation interceptor
+  InputValidator(),
+  // controller
+  (req, res, next) => {
+    // get params from body
+    const {email, password} = req.body;
+    // begin process
+    new Promise(async (resolve, reject) => {
+      try {
+        // load account
+        const account = await res.locals.db.accounts.findOne({email});
+        if (!account) {
+          return reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_LOGIN_INVALID_CRE')));
+        }
+        // generate password hash
+        const passwordHash = res.locals.accounts.generatePasswordHash(password, account.password.salt);
+        // verify it
+        if (account.password.hash !== passwordHash) {
+          return reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_LOGIN_INVALID_CRE')));
+        }
+        // all good
+        const access = await res.locals.accounts.generateJWT({
+          id: account.id,
+        });
+        // conclude
+        return resolve({
+          access_token: access.token,
+          expires_in: access.expiry,
+        });
+      } catch (e) {
+        return reject(e);
+      }
+    }).asCallback((err, response) => {
+      if (err) {
+        next(err);
+      } else {
+        res.json(response);
+      }
+    });
+  },
+];
