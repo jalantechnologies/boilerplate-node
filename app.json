@@ -10,9 +10,9 @@
     "NODE_CONFIG_ENV": {
       "description": "Realm for loading config entries",
       "required": true
-    }
-  },
+    },
     "MONGODB_URI": {
       "required": true
     }
+  }
 }
