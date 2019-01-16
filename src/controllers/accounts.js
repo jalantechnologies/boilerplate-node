@@ -32,10 +32,7 @@ exports.accountsReg = [
     contact_phone: {
       in: 'body',
       trim: true,
-      isEmpty: {
-        negated: true,
-        errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_MISSING_PHONE'),
-      },
+      optional: true,
       isInt: {
         errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_INVALID_PHONE'),
       },
