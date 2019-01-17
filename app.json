@@ -13,6 +13,9 @@
     },
     "MONGODB_URI": {
       "required": true
+    },
+    "ACCOUNTS_JWT_KEY": {
+      "required": true
     }
   }
 }
