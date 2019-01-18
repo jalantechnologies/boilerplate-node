@@ -33,3 +33,10 @@ exports.generateJWT = (params) => {
     expiry: ACC_JWT_EXP,
   };
 };
+
+exports.decodeJWT = (params) => {
+  // host from params
+  const {token} = params;
+  // decode and conclude
+  return JWT.verify(token, ACC_JWT_KEY);
+};

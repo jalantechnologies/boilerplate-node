@@ -84,7 +84,7 @@ app.use((req, res, next) => {
   // website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // request headers you wish to allow
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
@@ -92,6 +92,8 @@ app.use((req, res, next) => {
 
 // set up routes
 app.use('/accounts', routes.accounts);
+app.use('/account', routes.account);
+app.use('/profile', routes.profile);
 
 // not found handler
 app.use((req, res, next) => {
