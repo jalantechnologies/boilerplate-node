@@ -1,9 +1,21 @@
 const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
 const _ = require('lodash');
+const config = require('config');
 
-const {Error} = require('../helpers');
+const {Error, CryptoUtils, Utils} = require('../helpers');
 const {InputValidator} = require('../interceptors');
+
+// config
+const PASSWORD_RESET_CODE_EXP = config.get('accounts.reset.exp');
+const WEB_APP_ROOT = config.get('app.webAppRoot');
+
+// urls
+const ACCOUNT_RESET_URL = '{web_root}/accounts/recover/{code}';
+
+// mailing
+const MAIL_ACCOUNTS_SENDER = 'accounts';
+const MAIL_ACCOUNTS_TEMPLATE_RESET = 'accountsResetPassword';
 
 exports.accountsReg = [
   // validation schema
@@ -188,3 +200,136 @@ exports.accountsLogin = [
     });
   },
 ];
+
+exports.reset = (req, res, next) => {
+  // get params from body
+  // if email is set then, api call will send password reset request
+  // if code is set then, api call will update password
+  // if both are not set then this call will throw invalid request error
+  const {email, code} = req.body;
+  // begin process
+  new Promise(async (resolve, reject) => {
+    try {
+      if (email) {
+        // load account
+        const acc = await res.locals.db.accounts.findOne({email});
+        if (!acc) {
+          reject(Error.ValidationError([{
+            param: 'email',
+            msg: res.__('VAL_ERRORS.USR_ACC_RESET_INVALID_EMAIL'),
+          }]));
+        } else {
+          const resetCode = CryptoUtils.generateUUID();
+          acc.reset = {
+            code: resetCode,
+            issued_at: Date.now(),
+            expires_at: Date.now() + PASSWORD_RESET_CODE_EXP,
+          };
+          await acc.save();
+          await res.locals.mail.sendEmail({
+            sender: MAIL_ACCOUNTS_SENDER,
+            recipient: {
+              email: acc.email,
+            },
+            data: {
+              emailAddress: email,
+              passwordResetLink: Utils.buildStringFromMappings(ACCOUNT_RESET_URL, {
+                web_root: WEB_APP_ROOT,
+                code: resetCode,
+              }),
+            },
+            template: MAIL_ACCOUNTS_TEMPLATE_RESET,
+            locale: req.getLocale(),
+          });
+          resolve();
+        }
+      } else if (code) {
+        // load account
+        const acc = await res.locals.db.accounts.findOne({'reset.code': code});
+        if (acc) {
+          if (acc.reset && acc.reset.expires_at && Date.now() < acc.reset.expires_at) {
+            const {password, cnf_password} = req.body;
+            if (password) {
+              if (cnf_password) {
+                if (password === cnf_password) {
+                  const {hash, salt} = res.locals.accounts.initPasswordHash(password);
+                  // update password
+                  acc.password = {
+                    hash,
+                    salt,
+                  };
+                  acc.reset.code = '';
+                  await acc.save();
+                  // all good
+                  resolve();
+                } else {
+                  reject(Error.ValidationError([{
+                    param: 'cnf_password',
+                    msg: res.__('VAL_ERRORS.USR_ACC_NEW_CNF_PWD_MISMATCH'),
+                  }]));
+                }
+              } else {
+                reject(Error.ValidationError([{
+                  param: 'cnf_password',
+                  msg: res.__('VAL_ERRORS.USR_ACC_RESET_MISSING_CNF_PWD'),
+                }]));
+              }
+            } else {
+              reject(Error.ValidationError([{
+                param: 'password',
+                msg: res.__('VAL_ERRORS.USR_ACC_RESET_MISSING_PWD'),
+              }]));
+            }
+          } else {
+            reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_LINK_EXPIRE')));
+          }
+        } else {
+          reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_INVALID_RESET_CODE')));
+        }
+      } else {
+        reject(Errors.InvalidRequest());
+      }
+    } catch (e) {
+      reject(e);
+    }
+  }).asCallback((err, response) => {
+    if (err) {
+      next(err);
+    } else {
+      res.json(response);
+    }
+  });
+};
+
+exports.validateResetRequest = (req, res, next) => {
+  // load from query
+  const {code} = req.query;
+  // begin process
+  new Promise(async (resolve, reject) => {
+    try {
+      if (code) {
+        // load account
+        const acc = await res.locals.db.accounts.findOne({'reset.code': code});
+        if (acc) {
+          if (acc.reset && acc.reset.expires_at && Date.now() < acc.reset.expires_at) {
+            resolve();
+          } else {
+            reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_LINK_EXPIRE')));
+          }
+        } else {
+          reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_INVALID_RESET_CODE')));
+        }
+      } else {
+        reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_INVALID_RESET_CODE')));
+      }
+    } catch (e) {
+      reject(e);
+    }
+  }).asCallback((err, response) => {
+    if (err) {
+      next(err);
+    } else {
+      res.json(response);
+    }
+  });
+};
