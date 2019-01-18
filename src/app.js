@@ -36,6 +36,7 @@ app.set('view engine', 'ejs');
 app.use(DI([
   {module: modules.mongoose, namespace: 'db'},
   {module: modules.accounts, namespace: 'accounts'},
+  {module: modules.mail, namespace: 'mail'},
 ], () => {
   // fire app.ready
   // do it in next iteration to avoid server from not picking up the event

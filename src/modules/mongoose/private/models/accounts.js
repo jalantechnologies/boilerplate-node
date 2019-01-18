@@ -6,6 +6,11 @@ const schema = new mongoose.Schema({
     hash: String,
     salt: String,
   },
+  reset: {
+    code: String,
+    issued_at: Number,
+    expires_at: Number,
+  },
 }, {
   timestamps: {
     createdAt: 'created_at',

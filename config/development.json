@@ -18,5 +18,8 @@
   },
   "www": {
     "port": 8080
+  },
+  "mail": {
+    "enabled": false
   }
 }

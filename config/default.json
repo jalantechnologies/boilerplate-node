@@ -2,6 +2,25 @@
   "accounts": {
     "jwt": {
       "exp": 604800
+    },
+    "reset": {
+      "exp": 8.64e+7
+    }
+  },
+  "mail": {
+    "locale": "en",
+    "sender": {
+      "accounts": {
+        "email": "accounts@JTC.com",
+        "name": "JTC | Accounts"
+      }
+    }
+  },
+  "sendgrid": {
+    "template": {
+      "en": {
+        "accountsResetPassword": "d-85f352d5a7de47babe3b8137f8ca9214"
+      }
     }
   }
 }

@@ -15,5 +15,8 @@
   "sentry": {
     "dsn": null,
     "env": "staging"
+  },
+  "mail": {
+    "enabled": true
   }
 }
