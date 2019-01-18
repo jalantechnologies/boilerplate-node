@@ -287,7 +287,7 @@ exports.reset = (req, res, next) => {
           reject(Error.InvalidRequest(res.__('VAL_ERRORS.USR_ACC_RESET_INVALID_RESET_CODE')));
         }
       } else {
-        reject(Errors.InvalidRequest());
+        reject(Error.InvalidRequest());
       }
     } catch (e) {
       reject(e);
