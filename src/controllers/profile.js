@@ -1,6 +1,7 @@
 const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
 const _ = require('lodash');
+const PhoneNumber = require('awesome-phonenumber');
 
 const {ProfileResolver, InputValidator} = require('../interceptors');
 
@@ -52,7 +53,7 @@ exports.updateUser = [
       trim: true,
       optional: true,
       custom: {
-        options: value => !value || _.isNumber(value),
+        options: value => !value || PhoneNumber(value).isValid(),
         errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_PROFILE_INVALID_PHONE'),
       },
     },
