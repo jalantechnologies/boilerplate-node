@@ -26,6 +26,10 @@
     "USR_ACC_RESET_LINK_EXPIRE": "The recovery link you selected has expired. Re-submit your email address to receive a new recovery link.",
     "USR_ACC_RESET_MISSING_PWD": "Please specify a password",
     "USR_ACC_RESET_MISSING_NEW_PWD": "Please specify a new password",
-    "USR_ACC_RESET_MISSING_CNF_PWD": "Please specify confirm password"
+    "USR_ACC_RESET_MISSING_CNF_PWD": "Please specify confirm password",
+    "USR_PROFILE_MISSING_F_NAME": "Please specify first name to continue",
+    "USR_PROFILE_MISSING_ORG_NAME": "Please specify your organization name to continue",
+    "USR_PROFILE_INVALID_PHONE": "Please specify a valid phone to continue",
+    "USR_ACC_INVALID_CURRENT_PASSWORD": "The password you entered does not match with your current password"
   }
 }
