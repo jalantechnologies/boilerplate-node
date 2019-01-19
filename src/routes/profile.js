@@ -7,6 +7,6 @@ const router = express.Router({});
 
 router.get('/', AccessControl(), controller.get);
 
-router.put('/user', AccessControl(), controller.updateUser);
+router.put('/profile', AccessControl(), controller.updateUser);
 
 module.exports = router;
