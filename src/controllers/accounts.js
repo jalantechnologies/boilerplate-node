@@ -2,6 +2,7 @@ const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
 const _ = require('lodash');
 const config = require('config');
+const PhoneNumber = require('awesome-phonenumber');
 
 const {Error, CryptoUtils, Utils} = require('../helpers');
 const {InputValidator} = require('../interceptors');
@@ -45,7 +46,8 @@ exports.accountsReg = [
       in: 'body',
       trim: true,
       optional: true,
-      isInt: {
+      custom: {
+        options: value => !value || PhoneNumber(value).isValid(),
         errorMessage: (value, {req}) => req.__('VAL_ERRORS.USR_ACC_NEW_INVALID_PHONE'),
       },
     },

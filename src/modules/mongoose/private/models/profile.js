@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     last_name: String,
   },
   contact: {
-    phone: Number,
+    phone: String,
   },
 }, {
   timestamps: {

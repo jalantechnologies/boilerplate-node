@@ -33,3 +33,13 @@ exports.ValidationError = (errors) => {
 };
 
 exports.isHandled = err => err.api_code;
+
+exports.Unauthorized = (msg) => {
+  const eMsg = msg || '';
+  const error = new Error(eMsg);
+  error.api_code = 'unauthorized';
+  error.api_status = 401;
+  // noinspection JSUndefinedPropertyAssignment
+  error.locale_tag = 'UNAUTHORIZED';
+  return error;
+};
