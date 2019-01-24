@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 /**
  * @function - substitutes {placeholder} with provided mappings
  */

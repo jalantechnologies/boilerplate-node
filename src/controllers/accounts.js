@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const {checkSchema} = require('express-validator/check');
 const Promise = require('bluebird');
 const _ = require('lodash');

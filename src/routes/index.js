@@ -5,5 +5,5 @@ const profile = require('./profile');
 module.exports = {
   accounts,
   account,
-  profile
+  profile,
 };

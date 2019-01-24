@@ -9,8 +9,8 @@
   "scripts": {
     "start": "node ./dist/bin/www",
     "build": "gulp build",
-    "test": "mocha \"./src/**/*.spec.js\" --timeout 2000 --exit --env='{\"NODE_CONFIG_ENV\":\"testing\"}'",
-    "test-dist": "mocha \"./dist/**/*.spec.js\" --timeout $MOCHA_TIMEOUT --exit --env=$MOCHA_ENV_PARAMS",
+    "test": "mocha \"./src/**/*.spec.js\" --env='{\"NODE_CONFIG_ENV\":\"testing\"}'",
+    "test-dist": "mocha \"./dist/**/*.spec.js\" --env='{\"NODE_CONFIG_ENV\":\"testing\"}'",
     "serve": "gulp serve",
     "lint": "gulp lint",
     "heroku-postbuild": "npm run build",
