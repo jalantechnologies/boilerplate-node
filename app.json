@@ -1,7 +1,6 @@
 {
   "name": "boilerplate-node",
-  "scripts": {
-  },
+  "scripts": {},
   "env": {
     "NODE_ENV": {
       "description": "Node environment. node_modules packages can alter their behaviour when in production. Heroku will prune devPackages when in production.",
@@ -9,6 +8,18 @@
     },
     "NODE_CONFIG_ENV": {
       "description": "Realm for loading config entries",
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "ACCOUNTS_JWT_KEY": {
+      "required": true
+    },
+    "SENDGRID_API_KEY": {
+      "required": true
+    },
+    "WEB_APP_ROOT": {
       "required": true
     }
   }

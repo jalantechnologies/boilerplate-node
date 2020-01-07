@@ -1,9 +1,35 @@
 {
-  "HELLO": "I said hello using translation service",
   "DEFAULT_ERRORS": {
     "SERVER_ERROR": "Request could not be completed due to server encountered error. Please try again later.",
     "TEMPORARILY_UNAVAILABLE": "Service currently unavailable. Please try again later.",
     "INVALID_REQUEST": "Request could not be completed due to invalid request. Kindly check your request and try again.",
-    "NOT_FOUND": "Requested resource not found."
+    "NOT_FOUND": "Requested resource not found.",
+    "VALIDATION_ERROR": "Request could not be completed due to invalid parameters. Kindly check provided entries and try again."
+  },
+  "VAL_ERRORS": {
+    "USR_ACC_NEW_MISSING_EMAIL": "Please specify an email address to register",
+    "USR_ACC_NEW_INVALID_EMAIL": "Please specify a valid email address to register",
+    "USR_ACC_NEW_EMAIL_EXISTS": "An account is already registered with this email address. Please use a different email address to complete the registration",
+    "USR_ACC_NEW_MISSING_PWD": "Please specify a password to register",
+    "USR_ACC_NEW_MISSING_CNF_PWD": "Please specify confirm password to register",
+    "USR_ACC_NEW_CNF_PWD_MISMATCH": "Please ensure that password and confirm password matches",
+    "USR_ACC_NEW_MISSING_F_NAME": "Please specify first name to register",
+    "USR_ACC_NEW_INVALID_F_NAME": "Please specify a valid first name to register",
+    "USR_ACC_NEW_INVALID_PHONE": "Please specify a valid phone number to register",
+    "USR_ACC_LOGIN_MISSING_EMAIL": "Please specify an email address to login",
+    "USR_ACC_LOGIN_INVALID_EMAIL": "Please specify a valid email address to login",
+    "USR_ACC_LOGIN_MISSING_PWD": "Please specify a password to login",
+    "USR_ACC_LOGIN_INVALID_CRE": "Please specify a valid username and password to login",
+    "USR_ACC_RESET_MISSING_EMAIL": "Please specify an email address to reset password",
+    "USR_ACC_RESET_INVALID_EMAIL": "We are unable to locate an account with this email address",
+    "USR_ACC_RESET_INVALID_RESET_CODE": "Please specify a valid reset code",
+    "USR_ACC_RESET_LINK_EXPIRE": "The recovery link you selected has expired. Re-submit your email address to receive a new recovery link.",
+    "USR_ACC_RESET_MISSING_PWD": "Please specify a password",
+    "USR_ACC_RESET_MISSING_NEW_PWD": "Please specify a new password",
+    "USR_ACC_RESET_MISSING_CNF_PWD": "Please specify confirm password",
+    "USR_PROFILE_MISSING_F_NAME": "Please specify first name to continue",
+    "USR_PROFILE_MISSING_ORG_NAME": "Please specify your organization name to continue",
+    "USR_PROFILE_INVALID_PHONE": "Please specify a valid phone to continue",
+    "USR_ACC_INVALID_CURRENT_PASSWORD": "The password you entered does not match with your current password"
   }
 }

@@ -65,9 +65,9 @@ gulp.task('lint', () => gulp.src(['*.js', `${SRC_DIR}/**/*.js`])
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));
 
-gulp.task('build', BUILD_TASKS);
+gulp.task('build', gulp.series(BUILD_TASKS));
 
-gulp.task('serve', ['build'], () => {
+gulp.task('serve', gulp.series('build', () => {
   // script stack to run on each cycle
   const scripts = [];
   // add scripts to stack
@@ -79,4 +79,4 @@ gulp.task('serve', ['build'], () => {
     watch: [SRC_DIR, CONFIG_DIR],
     tasks: ['build'],
   });
-});
+}));

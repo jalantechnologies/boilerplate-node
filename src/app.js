@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const expressWinston = require('express-winston');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // our in-house dependency injection framework
 const DI = require('./di');
@@ -19,6 +20,7 @@ i18n.configure({
   locales: ['en', 'de'],
   defaultLocale: 'en',
   directory: path.join(__dirname, 'locales'),
+  objectNotation: true,
 });
 
 // init app
@@ -33,11 +35,19 @@ app.set('view engine', 'ejs');
 // module then can be accessible via req.locals.namespace within the controller
 app.use(DI([
   {module: modules.mongoose, namespace: 'db'},
+  {module: modules.accounts, namespace: 'accounts'},
+  {module: modules.mail, namespace: 'mail'},
 ], () => {
   // fire app.ready
   // do it in next iteration to avoid server from not picking up the event
   process.nextTick(() => app.emit('ready'));
 }));
+
+// set up cors
+app.use(cors());
+
+// pre flight request
+app.options('/accounts', cors());
 
 // interception start for sentry
 app.use(core.sentry.interceptBegin());
@@ -47,7 +57,7 @@ app.use(expressWinston.logger({
   winstonInstance: Logger,
   // no pre-build meta
   meta: false,
-  msg: 'API HTTP REQUEST {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
+  msg: 'request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers[\'user-agent\']}}',
   // use the default express/morgan request formatting
   // enabling this will override any msg if true
   expressFormat: false,
@@ -66,29 +76,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 // set up i18n
 app.use(i18n.init);
 
-// parse application/x-www-form-urlencoded payload
-app.use(bodyParser.urlencoded({
-  extended: false,
-}));
-
 // parse application/json payload
 app.use(bodyParser.json());
 
-// add headers
+// set up headers
 app.use((req, res, next) => {
   // website you wish to allow to connect
   res.setHeader('Access-Control-Allow-Origin', '*');
   // request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Accept');
-  // set to true if you need the website to include cookies in the requests sent
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   next();
 });
 
 // set up routes
-app.use('/', routes.hello);
+app.use('/accounts', routes.accounts);
+app.use('/account', routes.account);
+app.use('/profile', routes.profile);
 
 // not found handler
 app.use((req, res, next) => {
@@ -100,10 +105,14 @@ app.use((err, req, res, next) => {
   if (Error.isHandled(err)) {
     // handled error
     res.status(err.api_status);
-    res.send({
+    const obj = {
       error: err.message || res.__(`DEFAULT_ERRORS.${err.locale_tag}`),
       error_code: err.api_code,
-    });
+    };
+    if (err.errors) {
+      obj.errors = err.errors;
+    }
+    res.send(obj);
   } else if (DbUtils.checkConnectionErr(err)) {
     // mongoose connection error
     res.status(503);

@@ -1,5 +1,9 @@
-const hello = require('./hello');
+const accounts = require('./accounts');
+const account = require('./account');
+const profile = require('./profile');
 
 module.exports = {
-  hello,
+  accounts,
+  account,
+  profile,
 };

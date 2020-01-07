@@ -13,5 +13,16 @@
     "host": "PAPERTRAIL_HOST",
     "port": "PAPERTRAIL_PORT",
     "program": "PAPERTRAIL_PROGRAM"
+  },
+  "accounts": {
+    "jwt": {
+      "key": "ACCOUNTS_JWT_KEY"
+    }
+  },
+  "app": {
+    "webAppRoot": "WEB_APP_ROOT"
+  },
+  "sendgrid": {
+    "APIKey": "SENDGRID_API_KEY"
   }
 }
